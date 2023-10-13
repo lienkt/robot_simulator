@@ -1,19 +1,19 @@
 <div class="game-content">
-  <h1>Toy Robot Simulation</h1>
+  <h1 class="title">Robot Simulation</h1>
 
   <div class="tabletop">
     <div
       class="robot"
-      [style.left.px]="robot.x * 100"
-      [style.top.px]="robot.y * 100"
+      [style.left.px]="robot.x * (robot.tableTopWidth / 5)"
+      [style.top.px]="robot.y * (robot.tableTopWidth / 5)"
       [style.transform]="'rotate(' + robot.currentRotation + 'deg)'"
     >
       <img src="assets/icons/robot.png" alt="Robot" />
     </div>
   </div>
   <br />
-  <button (click)="move()">MOVE</button>
-  <button (click)="turnLeft()">TURN LEFT</button>
-  <button (click)="turnRight()">TURN RIGHT</button>
-  <button (click)="report()">REPORT</button>
+  <button class="move-btn" (click)="move()">MOVE</button>
+  <button class="turn-left-btn" (click)="turnLeft()">TURN LEFT</button>
+  <button class="turn-right-btn" (click)="turnRight()">TURN RIGHT</button>
+  <button class="report-btn" (click)="report()">REPORT</button>
 </div>

@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 
 interface Robot {
   x: number;
   y: number;
   facing: string;
   currentRotation: number;
+  tableTopWidth: number;
 }
 
 @Component({
@@ -18,9 +19,25 @@ export class RobotGameComponent {
     y: 2,
     facing: 'NORTH',
     currentRotation: 0,
+    tableTopWidth: 500,
   };
 
   constructor() {}
+
+  ngOnInit() {
+    this.updateWidth();
+  }
+
+  @HostListener('window:resize')
+  updateWidth() {
+    const tableTopElement = document.querySelector('.tabletop') as HTMLElement;
+    if (
+      tableTopElement &&
+      tableTopElement.offsetWidth !== this.robot.tableTopWidth
+    ) {
+      this.robot.tableTopWidth = tableTopElement.offsetWidth;
+    }
+  }
 
   move() {
     switch (this.robot.facing) {
@@ -76,6 +93,8 @@ export class RobotGameComponent {
   }
 
   report() {
-    alert(`Robot is at (${this.robot.x}, ${this.robot.y}), facing ${this.robot.facing}`);
+    alert(
+      `Robot is at (${this.robot.x}, ${this.robot.y}), facing ${this.robot.facing}`,
+    );
   }
 }

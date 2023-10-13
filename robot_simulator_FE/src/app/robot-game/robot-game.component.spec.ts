@@ -18,4 +18,29 @@ describe('RobotGameComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should render title', () => {
+    const fixture = TestBed.createComponent(RobotGameComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('.title')?.textContent).toContain(
+      'Robot Simulation',
+    );
+  });
+
+  it('should render buttons to controle robot', () => {
+    const fixture = TestBed.createComponent(RobotGameComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('.move-btn')?.textContent).toContain('MOVE');
+    expect(compiled.querySelector('.turn-left-btn')?.textContent).toContain(
+      'TURN LEFT',
+    );
+    expect(compiled.querySelector('.turn-right-btn')?.textContent).toContain(
+      'TURN RIGHT',
+    );
+    expect(compiled.querySelector('.report-btn')?.textContent).toContain(
+      'REPORT',
+    );
+  });
 });
