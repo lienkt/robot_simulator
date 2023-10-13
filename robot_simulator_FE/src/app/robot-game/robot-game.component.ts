@@ -1,6 +1,7 @@
 import { Component, HostListener } from '@angular/core';
 
 interface Robot {
+  placed: boolean;
   x: number;
   y: number;
   facing: string;
@@ -15,6 +16,7 @@ interface Robot {
 })
 export class RobotGameComponent {
   robot: Robot = {
+    placed: false,
     x: 2,
     y: 2,
     facing: 'NORTH',
@@ -24,18 +26,40 @@ export class RobotGameComponent {
 
   constructor() {}
 
-  ngOnInit() {
-    this.updateWidth();
-  }
-
   @HostListener('window:resize')
   updateWidth() {
     const tableTopElement = document.querySelector('.tabletop') as HTMLElement;
     if (
+      this.robot &&
       tableTopElement &&
       tableTopElement.offsetWidth !== this.robot.tableTopWidth
     ) {
       this.robot.tableTopWidth = tableTopElement.offsetWidth;
+    }
+  }
+
+  place(event: MouseEvent) {
+    if (!this.robot.placed) {
+      const tableTopElement = document.querySelector(
+        '.tabletop',
+      ) as HTMLElement;
+      const offsetX = Math.floor(
+        event.offsetX / (tableTopElement.offsetWidth / 5),
+      );
+      const offsetY = Math.floor(
+        event.offsetY / (tableTopElement.offsetWidth / 5),
+      );
+
+      if (offsetX >= 0 && offsetX <= 5 && offsetY >= 0 && offsetY <= 4) {
+        this.robot = {
+          placed: true,
+          x: offsetX,
+          y: offsetY,
+          facing: 'NORTH',
+          currentRotation: 0,
+          tableTopWidth: tableTopElement.offsetWidth,
+        };
+      }
     }
   }
 

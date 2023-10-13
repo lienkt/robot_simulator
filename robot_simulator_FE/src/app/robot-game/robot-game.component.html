@@ -1,8 +1,9 @@
 <div class="game-content">
   <h1 class="title">Robot Simulation</h1>
 
-  <div class="tabletop">
+  <div class="tabletop" (click)="place($event)">
     <div
+      *ngIf="robot.placed"
       class="robot"
       [style.left.px]="robot.x * (robot.tableTopWidth / 5)"
       [style.top.px]="robot.y * (robot.tableTopWidth / 5)"
