@@ -1,6 +1,10 @@
 <div class="game-content">
   <h1 class="title">Robot Simulation</h1>
 
+  <div class="instructions">
+    Please click to one position on table to put the robot!
+  </div>
+
   <div class="tabletop" (click)="place($event)">
     <div
       *ngIf="robot.placed"
@@ -13,8 +17,32 @@
     </div>
   </div>
   <br />
-  <button class="move-btn" (click)="move()">MOVE</button>
-  <button class="turn-left-btn" (click)="turnLeft()">TURN LEFT</button>
-  <button class="turn-right-btn" (click)="turnRight()">TURN RIGHT</button>
-  <button class="report-btn" (click)="report()">REPORT</button>
+  <button
+    [disabled]="!robot.placed"
+    class="control-btn move-btn"
+    (click)="move()"
+  >
+    MOVE
+  </button>
+  <button
+    [disabled]="!robot.placed"
+    class="control-btn turn-left-btn"
+    (click)="turnLeft()"
+  >
+    TURN LEFT
+  </button>
+  <button
+    [disabled]="!robot.placed"
+    class="control-btn turn-right-btn"
+    (click)="turnRight()"
+  >
+    TURN RIGHT
+  </button>
+  <button
+    [disabled]="!robot.placed"
+    class="control-btn report-btn"
+    (click)="report()"
+  >
+    REPORT
+  </button>
 </div>
