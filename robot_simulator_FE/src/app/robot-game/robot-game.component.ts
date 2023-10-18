@@ -1,5 +1,9 @@
 import { Component, HostListener } from '@angular/core';
 
+const tableUnits = 5;
+const defaultDirection = 'NORTH';
+const defaultTableWidth = 500;
+
 interface Robot {
   placed: boolean;
   x: number;
@@ -17,11 +21,11 @@ interface Robot {
 export class RobotGameComponent {
   robot: Robot = {
     placed: false,
-    x: 2,
-    y: 2,
-    facing: 'NORTH',
+    x: 0,
+    y: 0,
+    facing: defaultDirection,
     currentRotation: 0,
-    tableTopWidth: 500,
+    tableTopWidth: defaultTableWidth,
   };
 
   constructor() {}
@@ -44,18 +48,23 @@ export class RobotGameComponent {
         '.tabletop',
       ) as HTMLElement;
       const offsetX = Math.floor(
-        event.offsetX / (tableTopElement.offsetWidth / 5),
+        event.offsetX / (tableTopElement.offsetWidth / tableUnits),
       );
       const offsetY = Math.floor(
-        event.offsetY / (tableTopElement.offsetWidth / 5),
+        event.offsetY / (tableTopElement.offsetWidth / tableUnits),
       );
 
-      if (offsetX >= 0 && offsetX <= 5 && offsetY >= 0 && offsetY <= 4) {
+      if (
+        offsetX >= 0 &&
+        offsetX < tableUnits &&
+        offsetY >= 0 &&
+        offsetY < tableUnits
+      ) {
         this.robot = {
           placed: true,
           x: offsetX,
           y: offsetY,
-          facing: 'NORTH',
+          facing: defaultDirection,
           currentRotation: 0,
           tableTopWidth: tableTopElement.offsetWidth,
         };
